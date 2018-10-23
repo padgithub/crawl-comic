@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "crawler": "^1.2.0",
     "express": "^4.16.3",
@@ -16,6 +17,8 @@
     "firebase-admin": "^6.0.0",
     "image-to-base64": "^2.0.1",
     "nodemon": "^1.18.4",
+    "promise": "^8.0.2",
+    "realm": "^2.18.0",
     "uuid": "^3.3.2"
   }
 }
