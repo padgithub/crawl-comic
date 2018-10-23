@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "comic-crawl",
+    "private_key_id": "521b36cc8a01969e1c095e51035b3113349a4b95",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCNCfsCManvKqLP\nYPMpwddyD11fVhCmLWNjwCA1kj2k/0dBKpns9zhu7mIFCDI3DJtb0aIHq02yp73X\nAJOJpS1moK8Cvvsi7l0SRWn/dySsmyZ27TBI42nxEZ2oaXXyCA0ocbmiwd1nYhhO\n+x313TOfnTTmqgujiHPk/viWh5jD1j1pVGh80Wp5W3oXn0M3LNcdRycCYKLfspDd\ndeisZ6WXl5wcJeOZoyDWRNe3llHlAuaO05NyRJUO1OXIuGnoWiG4QuAV79uxrpLW\nc+1Lq+yrHOYESZISLPTv6hYKZXI2YSIR7WAfUUUnDd+gM9jEFxnhb7ToBc5C5m3g\nCzdcDte3AgMBAAECggEAKdIgzPi/A/0ng8iiseoZoWeu7zsM+smQpB5vLpNrlgZg\nMZGZTOvNnw8un4FbqnkhhCt4GUARbP1STHOOTA1flgPlgTHyM9xsWqOcl7TTeh8T\nW8ZfP+23F1V641pKL/d1N13phrpnlWVAAgNyUdpCmXy7F/6qLtaiTu/P9IrGoKLw\nlYe084h2ApIisCDQLcLJD2nPzfgBf1RDMU3pVE7F1nUHmR34FPgcg1ouxfYZw07A\ncfjPogtL+JQMVbtwCeWJ0JhxK0rOruCFHrSkuubXG4l1URv1Mtnq1M5Ionbxj5UQ\nL7D2cNzpVWussBRRzFJiHmlDiCpvsxDQrwuEVblsYQKBgQDFC3We1w+4t51XzQrp\nBYqSp9lQjqgl2qsrRzfGU3Ke5mhcumNVobCmeZBh3Oasc+fCkOZ9RqAhry0JZyfa\n5IFDeFZSzsb4vi/fU4lK0ukw0VaP2hZGj4J0IM/O99k5ZaeTIFW8OUUNWJKoXixe\njp5FWG8zbZh6vR+DF8HXlBE0xwKBgQC3PMmwzJYpfXMUz7eWWXvr+6saySPR03XW\nGBDcnhBVM/WWKq/6M9uJX6+mgICRYuyxtziCiY6VIC+JGfGLdCtxeYB61q9ZM0qW\nRshkHVDtlrbfc4UwuzR8eoOo2WgjtFqo5hBH9poldvhIiBXqx+fnMQZGyObdz57m\nQKZjEkd1kQKBgBru7A7gGpgHEQy1TC55wW02YC/wr+8sqoTp4SfMtDggClfSak2E\nIl8+8otN5IHh/eXMZJTvGGhCR4enf/0disWsJzB+bxgE9woxouyFU7aGhqx3BOB0\nMUKqUX1ax2hfCr7DhrSJp3ShjLpS1QG/wMZ9xgVjj5oHS81ha++Jn6h1AoGADl+5\nXqId4XFS1r4Yo7WvT+q1GGvQ4IPbCYlnwTaxB04FJNuCZHku7o7QA5qu+zisYqCB\n0VOjGLWmpPWhChR51/P1DS3MIY4xeqpgy+G02H5rKAoy14jH7D/cFiG/1pUuS3OI\nsWx52RiFD4OFXJ6D5ZHl8SWPXrULvPozUzA65NECgYEAqsZzknjqFNcX5IsYHmxw\nrwJzO95jlCQquPri9Xur0OXCHPtBAfLzagbar193FLGkYqRnbP6jYqTQI2hdpKrb\nLhvrmT/Rk2YL4NZ+hcp2TT7PxA6UajBk6NqRetMB073Y6cCBZzOxQqPBbeLBJf5h\nO1LXH84b6l/zZiiP9D+qGUA=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-h87up@comic-crawl.iam.gserviceaccount.com",
+    "client_id": "117085577222795953864",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-h87up%40comic-crawl.iam.gserviceaccount.com"
+  }
