@@ -1,6 +1,7 @@
 const Crawler = require("crawler");
-var admin = require("firebase-admin");
+const converbase64 = require("image-to-base64");
 const UUID = require("uuid/v5")
+var admin = require("firebase-admin");
 
 var serviceAccount = require("./service.json")
 
@@ -12,14 +13,17 @@ admin.initializeApp({
 var db = admin.firestore();
 
 var c = new Crawler();
+var c2 = new Crawler();
+var c3 = new Crawler();
 
 var addDoc = db.collection('list-comic')
 
-const getList = indexindex => {
+var addDocChapter = db.collection('chapter')
 
+const getList = index => {
   c.queue([
     {
-      uri: `http://www.nettruyen.com/tim-truyen?page=${indexindex}`,
+      uri: `http://www.nettruyen.com/tim-truyen?page=${index}`,
       jQuery: true,
       // The global callback won't be called
       callback: function (error, res, done) {
@@ -44,8 +48,6 @@ const getList = indexindex => {
                 .attr("data-original");
               var imgBase64 = ""
 
-              const detaitl = $(element)
-              .find("p").text()
 
               const a1 = $(element)
                 .find("label")
@@ -89,8 +91,7 @@ const getList = indexindex => {
                   .text()
                   .replace("Tình trạng:", "");
               }
-
-              const uuid = `${UUID.URL}-${index}-${indexindex}`
+              var uuid = UUID.URL
 
               // converbase64("https://3.bp.blogspot.com/-IflJ2NgvnDM/Wo9p39P-WvI/AAAAAAAAN24/WvPWygbYep4X3I1W1GsrB0iIn72YuzkrwCHMYCw/ban-trai-minh-tinh-buc-yeu") // you can also to use url
               // .then(
@@ -103,18 +104,14 @@ const getList = indexindex => {
               //     console.log(error); //Exepection error....
               //   }
               // )
+              // console.log(title)
+              // console.log(thumbnail)
+              // console.log(aboutUs)
+              // console.log(url)
+              // console.log(category)
+              // console.log(status)
+              // console.log(author)
 
-//               console.log(title)
-//               console.log(thumbnail)
-//               console.log(aboutUs)
-//               console.log(url)
-//               console.log(category)
-//               console.log(status)
-//               console.log(author)
-//               console.log(detaitl)
-//               console.log(uuid)
-            
-            
               addDoc.add({
                 uuid: uuid,
                 title: title,
@@ -123,72 +120,87 @@ const getList = indexindex => {
                 author: author,
                 category: category,
                 aboutUs: aboutUs,
-                detail: detaitl,
                 status: status,
                 dateCrawl: new Date(),
                 isCrawl: false
               }).then(ref => {
                 console.log('Added document comic with ID: ', ref.id);
-                getListChapter(ref.id,uuid,url)
+                getListChapter(ref.id, url,uuid)
               }).catch(err => {
                 console.log(err)
               })
 
             });
         }
-
         done();
       }
     }
   ]);
 };
 
-const getListChapter = (id,uuid,url) => {
-  c.queue([{
+const getListChapter = (id,url,uuid) => {
+  c3.queue([{
     uri: url,
     jQuery: true,
-
     // The global callback won't be called
     callback: function (error, res, done) {
       if (error) {
         console.log(error);
       } else {
         var $ = res.$;
+    
         $('#nt_listchapter')
           .find('.row')
           .each(function (index, element) {
             const urlChapter = $(element).find('.col-xs-5 a').attr('href')
             const titleChapter = $(element).find('.col-xs-5 a').text()
             const timeUpdate = $(element).find('.col-xs-4').text()
-            const indexChapter = parseInt(titleChapter.replace("Chapter ",""))
-        
-            console.log(indexChapter)
-          
-            if (timeUpdate != "Cập nhật") {
-              addDoc.doc(id).collection('chapter').add({
-                
-                idComic: uuid,
-                idDocument: id,
-                urlChapter: urlChapter,
-                titleChapter: titleChapter,
-                arrUrlImage: [],
-                timeCrawl: new Date(),
-                timeUpdate: timeUpdate,
-                indexChapter: indexChapter,
-                isCrawlImage: false
+            const indexChap = $(element).find('.col-xs-5 a').text().replace("Chapter ","")
+            var arr = []
+            c2.queue([{
+              uri: urlChapter,
+              jQuery: true,
+              // The global callback won't be called
+              callback: function (error, res, done) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  var $ = res.$;
+                  $('div[class="reading"]')
+                    .find('.page-chapter')
+                    .each(function (index, element) {
+                      const url = $(element).find('img').attr('src')
+                      arr.push(url)
+                    });
+                    
+                }
 
-              }).then(ref => {
-                console.log('Added document chapter with ID: ', ref.id);
-                 addDoc.doc(id).update({
-                  isCrawl: true
+                done();
+                console.log(arr)
+                console.log(titleChapter)
+                console.log(urlChapter)
+
+                if (timeUpdate != "Cập nhật") {
+                  addDoc.doc(id).collection('chapter').doc(indexChap).set({
+                    idComic: uuid,
+                    idDocument: id,
+                    urlChapter: urlChapter,
+                    titleChapter: titleChapter,
+                    arrUrlImage: arr,
+                    timeCrawl: new Date(),
+                    timeUpdate: timeUpdate,
+                    indexChap : indexChap
                 })
-                
-                getListImageChap(id,ref.id,urlChapter)
-              }).catch(err => {
-                console.log(err)
-              })
-
-            }
+                .then(function() {
+                    console.log("Document successfully written!");
+                })
+                .catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+                }
+              }
+            }]);
+            
           });
       }
       done();
@@ -196,45 +208,43 @@ const getListChapter = (id,uuid,url) => {
   }]);
 }
 
-const getListImageChap = (idComic,id,url) => {
-  c.queue([{
-    uri: url,
-    jQuery: true,
+// const getListImageChap = (id,url) => {
+//   var arr = []
+//   c3.queue([{
+//     uri: url,
+//     jQuery: true,
 
-    // The global callback won't be called
-    callback: function (error, res, done) {
-      if (error) {
-        console.log(error);
-      } else {
-        var arr = []
-        var $ = res.$;
-        $('div[class="reading"]')
-          .find('.page-chapter')
-          .each(function (index, element) {
-            const url = $(element).find('img').attr('src')
-            arr.push(url)
-          });
-        
-          if ( arr.length > 0 ){
-            addDoc.doc(idComic).collection('chapter').doc(id).update({
-              arrUrlImage: arr,
-              isCrawlImage: true
-            })
-              .then(function () {
-                console.log("Document successfully updated!");
-              })
-              .catch(function (error) {
-                console.error("Error updating document: ", error);
-              });
-          }
-      }
-      done();
-    }
-  }]);
-};
+//     // The global callback won't be called
+//     callback: function (error, res, done) {
+//       if (error) {
+//         console.log(error);
+//       } else {
+//         arr = []
+//         var $ = res.$;
+//         $('div[class="reading"]')
+//           .find('.page-chapter')
+//           .each(function (index, element) {
+//             const url = $(element).find('img').attr('src')
+//             arr.push(url)
+//           });
+//       }
+//       done();
+//       var washingtonRef = addDocChapter.doc(id);
+//           return washingtonRef.update({
+//             arrUrlImage: arr
+//           })
+//             .then(function () {
+//               console.log("Document successfully updated!");
+//             })
+//             .catch(function (error) {
+//               console.error("Error updating document: ", error);
+//             });
+//     }
+//   }]);
+// };
 
 const run = () => {
-  for (var index = 1; index < 2; index++) {
+  for (var index = 0; index < 2; index++) {
     getList(index);
     console.log(`Trang ${index}`);
   }
