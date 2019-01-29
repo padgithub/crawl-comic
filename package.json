@@ -16,9 +16,11 @@
     "firebase": "^5.5.5",
     "firebase-admin": "^6.0.0",
     "image-to-base64": "^2.0.1",
-    "nodemon": "^1.18.4",
     "promise": "^8.0.2",
     "realm": "^2.18.0",
     "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }

@@ -21,6 +21,7 @@ var addDoc = db.collection('list-comic')
 var addDocChapter = db.collection('chapter')
 
 const getList = index => {
+
   c.queue([
     {
       uri: `http://www.nettruyen.com/tim-truyen?page=${index}`,
